@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% from "macro.html" import function_slider with context %}
+{% block head %}
+    {{ super() }}
+    <style>
+        .span-bottom-line{
+            border-bottom: 4px solid #00bc8c;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <main>
+        <div class="container mt-2">
+            <div class="row">
+                <div class="col-md-2 mb-2">
+                    {{ function_slider('骗子全览') }}
+                </div>
+                <div class="col-md-10">
+                    {% include "_flash.html" %}
+
+                    <h4 class="text-muted mb-3"><span class="span-bottom-line"><b>骗子全览</b></span></h4>
+                    <table class="table table-hover table-responsive-lg">
+                        <thead>
+                        <tr>
+                            <th scope="col">序号</th>
+                            <th scope="col">角色名</th>
+                            <th scope="col">冒险团</th>
+                            <th scope="col">时间</th>
+                            <th scope="col">行骗次数</th>
+                            <th scope="col">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for liar in  liars %}
+                            <tr class="table-dark">
+                                <td>{{ loop.index }}</td>
+                                <td><a class="text-decoration-none" href="/detail/{{ liar.id }}/">{{ liar.username }}</a></td>
+                                <td><a class="text-decoration-none" href="/detail/{{ liar.id }}/">{{ liar.adventure_name }}</a></td>
+                                <td>{{ liar.timestamps }}</td>
+                                <td>{{ liar.lie_times }}</td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            操作
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="/be-lied/{{ liar.id }}/">受骗</a>
+                                            <a class="dropdown-item" href="/auth/logout/">投诉</a>
+                                            <a class="dropdown-item" href="/auth/logout/">删除</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+{% endblock %}

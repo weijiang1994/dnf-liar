@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+{% block head %}
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}bbs{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+        <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+        <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+{#        <link rel="stylesheet" href="{{ url_for('static', filename='themes/%s.bootstrap.min.css' % request.cookies.get('bbs_themes', 'darkly')) }}">#}
+        <link rel="stylesheet" href="{{ url_for('static', filename='themes/darkly.bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+        <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </head>
+{% endblock %}
+
+{% block nav %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container align-self-end">
+            <a class="navbar-brand" href="/"><i class="fa fa-bbs"></i>DNF骗子</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navHome" aria-controls="navHome" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+
+        </div>
+    </nav>
+{% endblock %}
+{% block content %}
+{% endblock %}
+{% block footer %}
+    <footer class="container-fluid mt-4 py-0 bg-dark">
+        <div class="card-body text-center px-0 f-14">
+            <p class="card-text mb-1">Copyright&nbsp;©&nbsp;<span>2020</span>
+                <a href="http://2dogz.cn/"  target="_blank" title="官网">University BBS</a>&nbsp;Design&nbsp;by&nbsp;Flask1.01.
+            </p>
+        </div>
+    </footer>
+{% endblock %}
+</html>

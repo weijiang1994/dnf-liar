@@ -7,6 +7,9 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+venv/
+.env
+.flaskenv
 .Python
 build/
 develop-eggs/
@@ -102,7 +105,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+.flaskenv
 .venv
 env/
 venv/
