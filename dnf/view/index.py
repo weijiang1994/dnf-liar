@@ -11,7 +11,6 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField
 from flask_ckeditor import CKEditorField
 from wtforms.validators import DataRequired, ValidationError
-
 from dnf.extensions import db
 from dnf.models import ServerArea, LiarInfo
 
@@ -86,4 +85,51 @@ def be_lied(liar_id):
 
 @index_bp.route('/search/')
 def search():
-    return render_template('search.html')
+    server_area = request.args.get('searchType')
+    type2 = request.args.get('searchType2')
+    type3 = request.args.get('searchType3')
+    keyword = request.args.get('keyword')
+    server_db = ServerArea.query.filter_by(name=server_area).first()
+    if server_db:
+        liar = search_by_arg(server_db, type2, type3, keyword)
+        return render_template('search.html', tag=0, liars=liar, server=server_area, type2=type2, type3=type3,
+                               keyword=keyword)
+    return render_template('search.html', tag=1)
+
+
+@index_bp.route('/detail/<liar_id>/')
+def liar_detail(liar_id):
+    liar = LiarInfo.query.get_or_404(liar_id)
+    return render_template('detail.html', liar=liar)
+
+
+def search_by_arg(ser_db, type1, type2, keyword):
+    if type1 == '角色名' and type2 == '精确查询':
+        liar = LiarInfo.query.filter(LiarInfo.username == keyword, LiarInfo.server_id == ser_db.id).all()
+        return liar
+
+    if type1 == '冒险团名' and type2 == '精确查询':
+        liar = LiarInfo.query.filter(LiarInfo.adventure_name == keyword, LiarInfo.server_id == ser_db.id).all()
+        return liar
+
+    if type1 == '角色名' and type2 == '模糊查询':
+        liar = LiarInfo.query.filter(LiarInfo.username.like('%{}%'.format(keyword)),
+                                     LiarInfo.server_id == ser_db.id).all()
+        return liar
+
+    if type1 == '冒险团名' and type2 == '模糊查询':
+        liar = LiarInfo.query.filter(LiarInfo.adventure_name.like('%{}%'.format(keyword)),
+                                     LiarInfo.server_id == ser_db.id).all()
+        return liar
+
+
+@index_bp.route('/callback/', methods=['GET', 'POST'])
+def callback():
+    if request.method == 'POST':
+        title = request.form.get('title')
+        content = request.form.get('content')
+        print(title)
+        print(content)
+        flash('意见反馈提交成功!', 'success')
+        return redirect(url_for('.index'))
+    return render_template('callback.html')

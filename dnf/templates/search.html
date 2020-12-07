@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% from "macro.html" import function_slider with context %}
 {% import 'bootstrap/wtf.html' as wtf %}
+{% block title %}
+    搜索骗子
+{% endblock %}
 {% block head %}
     {{ super() }}
     <style>
@@ -19,9 +22,9 @@
                 <div class="col-md-10">
                     <h4 class="text-muted mb-3"><span class="span-bottom-line"><b>搜索骗子</b></span></h4>
                     <div class="text-right">
-                        <form action="/tool/search/" method="get">
+                        <form action="/search/" method="get">
                             <div class="form-row align-items-center">
-                                <div class="col-auto">
+                                <div class="col-auto mb-2">
                                     <label for="searchType" class="sr-only">所在跨区</label>
                                     <select name="searchType" class="form-control" id="searchType">
                                         <option>跨一</option>
@@ -35,7 +38,7 @@
                                         <option>跨八</option>
                                     </select>
                                 </div>
-                                <div class="col-auto">
+                                <div class="col-auto mb-2">
                                     <label for="searchType2" class="sr-only">搜索类型</label>
                                     <select name="searchType2" class="form-control" id="searchType2">
                                         <option>角色名</option>
@@ -43,14 +46,14 @@
                                         <option>行骗描述</option>
                                     </select>
                                 </div>
-                                <div class="col-auto">
+                                <div class="col-auto mb-2">
                                     <label for="searchType3" class="sr-only">搜索类型</label>
                                     <select name="searchType3" class="form-control" id="searchType3">
                                         <option>精确查询</option>
                                         <option>模糊查询</option>
                                     </select>
                                 </div>
-                                <div class="col-auto">
+                                <div class="col-auto mb-2">
                                     <label for="perPage" class="sr-only">每页数量</label>
                                     <select name="perPage" class="form-control" id="perPage">
                                         <option>50</option>
@@ -59,7 +62,7 @@
                                         <option>200</option>
                                     </select>
                                 </div>
-                                <div class="col-auto">
+                                <div class="col-auto mb-2">
                                     <label for="keyword" class="sr-only">keyword</label>
                                     <input type="text" name="keyword" class="form-control" id="keyword" required placeholder="关键字">
                                 </div>
@@ -70,65 +73,77 @@
                         </form>
                     </div>
                     <hr>
-{#                    {% if tag == 0 %}#}
-{#                        <article>#}
-{#                            <span style="border-bottom: 5px solid #00AAEE">查询说明</span>#}
-{#                            <br>#}
-{#                            <br>#}
-{#                            <section>#}
-{#                                <p>1. 因为数据库中诗跟词没有放在同一张表里面，同时，诗词的表结构也不一样，因此搜索的时候需要选择搜索的类型，诗或者词；</p>#}
-{#                                <p>2. 关键字类型分为三种分别是作者、标题(诗名、词牌名)以及内容，字面意思不需要多解释；</p>#}
-{#                                <p>3. 搜索模式包含有精确查询和模糊查询两种方式；</p>#}
-{#                                <div>#}
-{#                                    <ul class="list-group">#}
-{#                                        <li class="list-group-item">精确查询就是百分百匹配的意思，如你查询黄鹤楼通过标题的形式，那么返回的就只有标题名为黄河楼的诗词；</li>#}
-{#                                        <li class="list-group-item">模糊查询就是模糊匹配，如你查询黄鹤楼通过标题的形式，那么返回是标题包含有黄鹤楼的诗词；</li>#}
-{#                                        <li class="list-group-item">模糊查询其实我是不想支持的，因为使用这样的查询方式会导致数据库的索引失效，而且诗词数据库的数据量比较大了，十分影响性能；</li>#}
-{#                                    </ul>#}
-{#                                </div>#}
-{#                                <p>4. 数字栏表示每页显示查询结果的数据量大小；</p>#}
-{#                            </section>#}
-{#                        </article>#}
-{#                    {% else %}#}
-{#                        <article>#}
-{#                            <h5>搜索结果</h5>#}
-{#                            <p class="text-muted">#}
-{#                                条件1:<span class="badge badge-info">{{ sctype }}</span> 条件2:<span class="badge badge-info">{{ type2 }}</span> 条件3:<span class="badge badge-info">{{ mode }}</span>#}
-{#                                关键字:<span class="badge badge-info">{{ keyword }}</span>#}
-{#                            </p>#}
-{#                            <p>总共查询到<b>{{ pagination.total }}</b>个结果</p>#}
-{#                            {% if sctype == '词' %}#}
-{#                                {% for result in results %}#}
-{#                                    <div style="margin-bottom: 8px;" class="card bg-dark text-white">#}
-{#                                        <div class="text-muted card-header">#}
-{#                                            {{ result.rhythmic }}&nbsp;&nbsp;&nbsp;&nbsp;宋·{{ result.authors.name }}#}
-{#                                        </div>#}
-{#                                        <div class="card-body">#}
-{#                                            {{ result.content|safe }}#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                {% endfor %}#}
-{#                            {% else %}#}
-{#                                {% for result in results %}#}
-{#                                    <div style="margin-bottom: 8px;" class="card bg-dark text-white">#}
-{#                                        <div class="text-muted card-header">#}
-{#                                            {{ result.title }}&nbsp;&nbsp;&nbsp;&nbsp;{{ result.poets.dynasties.name }}·{{ result.poets.name }}#}
-{#                                        </div>#}
-{#                                        <div class="card-body">#}
-{#                                            {{ result.content|safe }}#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                {% endfor %}#}
-{#                            {% endif %}#}
-{#                            <div class="float-right">#}
-{#                                {{ render_pagination(pagination) }}#}
-{#                            </div>#}
-{#                        </article>#}
-{#                    {% endif %}#}
+                    {% if tag %}
+                        <article>
+                            <span style="border-bottom: 5px solid #00AAEE">查询说明</span>
+                            <br>
+                            <br>
+                            <section>
+                                <p>选择相应的查询类型，输入关键字进行查询即可在数据库中搜索结果!</p>
+                                <p>示例:</p>
+                                <ul>
+                                    <li>比如我要查询<span class="text-info">记得吃早餐。</span>是否是骗子，查询条件是<span class="text-danger">类型一:跨二,类型二:角色名,类型三:精确查询</span>,那么按照下图选择即可。</li>
+                                    <li><img alt="查询示例图" class="img-fluid" src="{{ url_for('static', filename='查询示例.png') }}"></li>
+                                    <li>行骗内容查询暂时未实现,敬请留意后续版本更新!</li>
+                                    <li>上述示例中<span class="text-danger">记得吃早餐。</span>是我的游戏角色名,并不是骗子哦!</li>
+                                </ul>
+                            </section>
+                        </article>
+                    {% else %}
+                        <p><span style="border-bottom: 5px solid #00AAEE">查询结果</span></p>
+                        <p class="text-muted">
+                                跨区:<span class="badge badge-info">{{ server }}</span> 条件2:<span class="badge badge-info">{{ type2 }}</span> 条件3:<span class="badge badge-info">{{ type3 }}</span>
+                                关键字:<span class="badge badge-info">{{ keyword }}</span>
+                            </p>
+                        {% if liars %}
+                            <table class="table table-hover table-responsive-lg">
+                                <thead>
+                                <tr>
+                                    <th scope="col">序号</th>
+                                    <th scope="col">角色名</th>
+                                    <th scope="col">冒险团</th>
+                                    <th scope="col">跨区</th>
+                                    <th scope="col">行骗次数</th>
+                                    <th scope="col">时间</th>
+                                    <th scope="col">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for liar in  liars %}
+                                    <tr class="table-dark">
+                                        <td>{{ loop.index }}</td>
+                                        <td><a class="text-decoration-none" href="/detail/{{ liar.id }}/">{{ liar.username }}</a></td>
+                                        <td><a class="text-decoration-none" href="/detail/{{ liar.id }}/">{{ liar.adventure_name }}</a></td>
+                                        <td>{{ liar.server_area.name }}</td>
+                                        <td>{{ liar.lie_times }}</td>
+                                        <td>{{ liar.timestamps }}</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
+                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    操作
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item" href="/be-lied/{{ liar.id }}/">受骗</a>
+                                                    <a class="dropdown-item" href="/auth/logout/">投诉</a>
+                                                    <a class="dropdown-item" href="/auth/logout/">删除</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <div class="mt-5 text-center">
+                                <p style="font-size: 20px;font-weight: bold">数据库中暂未发现!数据库是各方网友搜集贡献的,不能保证骗子百分百收录在本数据库了,请谨慎游戏!</p>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+
                 </div>
             </div>
         </div>
     </main>
-    {{ ckeditor.load() }}
-    {{ ckeditor.config(name='content') }}
 {% endblock %}

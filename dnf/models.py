@@ -33,3 +33,13 @@ class LiarInfo(db.Model):
     add_person = db.Column(db.String(200), default='')
 
     server_area = db.relationship('ServerArea', back_populates='liar')
+
+
+class Callback(db.Model):
+    __tablename__ = 'callback'
+
+    id = db.Column(db.INTEGER, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(100), nullable=False, default='')
+    content = db.Column(db.TEXT, default='')
+    who = db.Column(db.String(100), default='')
+    timestamps = db.Column(db.DATETIME, default=datetime.datetime.now)

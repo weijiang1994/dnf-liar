@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% from "macro.html" import function_slider with context %}
+{% block title %}
+    {{ liar.name }}
+{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style>
+        .span-bottom-line{
+            border-bottom: 4px solid #00bc8c;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <main>
+        <div class="container mt-2">
+            <div class="row">
+                <div class="col-md-2">
+                    {{ function_slider('骗子全览') }}
+                </div>
+                <div class="col-md-10">
+                    <h4 class="text-muted mb-3"><span class="span-bottom-line"><b>骗子基本信息</b></span></h4>
+                    <p><span class="badge badge-info">骗子角色名:</span><span class="ml-2 badge badge-danger">{{ liar.username }}</span></p>
+                    <p><span class="badge badge-info">骗子冒险团:</span><span class="ml-2 badge badge-danger">{{ liar.adventure_name }}</span></p>
+                    <h4 class="text-muted mb-3"><span class="span-bottom-line"><b>行骗详情描述</b></span></h4>
+                    <p>{{ liar.content|safe }}</p>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% from "macro.html" import function_slider with context %}
+{% block  title %}
+    骗子全览
+{% endblock %}
 {% block head %}
     {{ super() }}
     <style>
@@ -25,8 +28,9 @@
                             <th scope="col">序号</th>
                             <th scope="col">角色名</th>
                             <th scope="col">冒险团</th>
-                            <th scope="col">时间</th>
+                            <th scope="col">跨区</th>
                             <th scope="col">行骗次数</th>
+                            <th scope="col">时间</th>
                             <th scope="col">操作</th>
                         </tr>
                         </thead>
@@ -36,8 +40,9 @@
                                 <td>{{ loop.index }}</td>
                                 <td><a class="text-decoration-none" href="/detail/{{ liar.id }}/">{{ liar.username }}</a></td>
                                 <td><a class="text-decoration-none" href="/detail/{{ liar.id }}/">{{ liar.adventure_name }}</a></td>
-                                <td>{{ liar.timestamps }}</td>
+                                <td>{{ liar.server_area.name }}</td>
                                 <td>{{ liar.lie_times }}</td>
+                                <td>{{ liar.timestamps }}</td>
                                 <td>
                                     <div class="dropdown">
                                         <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
