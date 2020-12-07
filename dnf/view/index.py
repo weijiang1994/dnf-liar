@@ -120,7 +120,7 @@ def delete(liar_id):
         db.session.commit()
         flash('删除成功!', 'success')
         return redirect(url_for('.index'))
-    flash('该功能正在开发中,请留意后续版本更新!', 'info')
+    flash('你没有该权限!', 'danger')
     return redirect(url_for('.index'))
 
 
