@@ -35,4 +35,24 @@
     </main>
     {{ ckeditor.load() }}
     {{ ckeditor.config(name='content') }}
+    <script>
+        CKEDITOR.on( 'instanceReady', function( evt ) {
+            evt.editor.dataProcessor.htmlFilter.addRules( {
+                elements: {
+                    img: function(el) {
+                        el.addClass('img-fluid d-block mx-auto');
+                    },
+                    table: function (el){
+                        el.addClass('table table-responsive');
+                    },
+                    thead: function (el){
+                        el.addClass('thead-light');
+                    },
+                    blockquote: function (el){
+                        el.addClass('m-blockquote');
+                    }
+                }
+            });
+        });
+    </script>
 {% endblock %}
