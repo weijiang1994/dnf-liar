@@ -111,6 +111,15 @@ def appeal(liar_id):
 
 @index_bp.route('/delete/<liar_id>/')
 def delete(liar_id):
+    remote_ip = request.headers.get('X-Real-Ip')
+    if remote_ip is None:
+        remote_ip = request.remote_addr
+    if remote_ip == '118.250.174.10' or remote_ip == '127.0.0.1':
+        liar = LiarInfo.query.get_or_404(liar_id)
+        db.session.delete(liar)
+        db.session.commit()
+        flash('删除成功!', 'success')
+        return redirect(url_for('.index'))
     flash('该功能正在开发中,请留意后续版本更新!', 'info')
     return redirect(url_for('.index'))
 
