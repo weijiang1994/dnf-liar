@@ -103,6 +103,18 @@ def liar_detail(liar_id):
     return render_template('detail.html', liar=liar)
 
 
+@index_bp.route('/appeal/<liar_id>/')
+def appeal(liar_id):
+    flash('该功能正在开发中,请留意后续版本更新!', 'info')
+    return redirect(url_for('.index'))
+
+
+@index_bp.route('/delete/<liar_id>/')
+def delete(liar_id):
+    flash('该功能正在开发中,请留意后续版本更新!', 'info')
+    return redirect(url_for('.index'))
+
+
 def search_by_arg(ser_db, type1, type2, keyword):
     if type1 == '角色名' and type2 == '精确查询':
         liar = LiarInfo.query.filter(LiarInfo.username == keyword, LiarInfo.server_id == ser_db.id).all()
