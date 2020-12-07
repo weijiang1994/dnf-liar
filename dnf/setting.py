@@ -10,6 +10,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
+basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 
 class BaseConfig(object):
@@ -26,7 +27,9 @@ class BaseConfig(object):
     CKEDITOR_SERVE_LOCAL = True
     CKEDITOR_ENABLE_CODESNIPPET = True
     CKEDITOR_HEIGHT = 350
-    CKEDITOR_FILE_UPLOADER = 'index.index'
+    CKEDITOR_FILE_UPLOADER = 'normal.upload'
+
+    APP_UPLOAD_PATH = basedir + '/uploads/'
 
 
 class DevelopmentConfig(BaseConfig):

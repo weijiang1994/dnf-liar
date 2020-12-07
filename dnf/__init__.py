@@ -10,6 +10,7 @@ import click
 from flask import Flask
 from dnf.setting import DevelopmentConfig
 from dnf.view.index import index_bp
+from dnf.view.normal import normal_bp
 from dnf.extensions import *
 from dnf.models import *
 
@@ -33,6 +34,7 @@ def register_extensions(app):
 
 def register_bp(app):
     app.register_blueprint(index_bp)
+    app.register_blueprint(normal_bp)
 
 
 def register_cmd(app):
